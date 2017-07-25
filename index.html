@@ -1,0 +1,47 @@
+<html>
+  <head>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <script src="webcomponentsjs/webcomponents-loader.js"></script>
+  <link rel="import" href="elements/ssz-line.min.html">
+  </head>
+  <body>
+    <div class="container">
+      <h1>SPARQL Query Driven Webcomponents</h1>
+      <div class="row">
+        <div class="col-md-4">
+          <ssz-line
+            query="PREFIX qb: <http://purl.org/linked-data/cube#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT ?zeitLabel ?raumLabel ?kennzahlLabel ?flaecheLabel ?wert WHERE { GRAPH <https://linked.opendata.swiss/graph/zh/statistics> { ?obs a qb:Observation ; <http://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit; <http://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum; <http://ld.stadt-zuerich.ch/statistics/property/RAUM> <http://ld.stadt-zuerich.ch/statistics/code/R00091>; <http://ld.stadt-zuerich.ch/statistics/property/KENNZAHL> ?kennzahl ; <http://ld.stadt-zuerich.ch/statistics/property/GRUPPENCODE1> ?flaeche ; <http://ld.stadt-zuerich.ch/statistics/property/EINHEIT> ?einheit ; <http://ld.stadt-zuerich.ch/statistics/property/WERT> ?wert .         ?raum rdfs:label ?raumLabel .  ?kennzahl rdfs:label  ?kennzahlLabel .  ?flaeche skos:notation  ?flaecheLabel .  BIND (xsd:datetime(SUBSTR(str(?zeit),STRLEN(str(?zeit))-3)) AS ?zeitLabel) FILTER ( ?flaecheLabel IN( &quot;BBA1310&quot;)) } }  ORDER BY ?zeitLabel"
+            yLabel="Fläche"
+            xLabel="Datum"
+            datecolumn="zeitLabel"
+            valuecolumn="wert">
+          </ssz-line>
+        </div>
+        <div class="col-md-8">
+          <h3>BA1310</h3>
+          <p>
+          Lorem ipsum dolor sit amet, sea et mazim copiosae, id vis vidit clita iriure. Qui dolor invenire te, vel cetero prompta et, ut eam probo admodum. Nec ad democritum definitionem. Ius eu mazim ignota interesset. At cum tacimates convenire iracundia, aeque audire adipiscing est an, ad mel solet iracundia honestatis. Esse euismod fabulas quo te, vim et vero ocurreret.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <ssz-line
+            query="PREFIX qb: <http://purl.org/linked-data/cube#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT ?zeitLabel ?raumLabel ?kennzahlLabel ?flaecheLabel ?wert WHERE { GRAPH <https://linked.opendata.swiss/graph/zh/statistics> { ?obs a qb:Observation ; <http://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit; <http://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum; <http://ld.stadt-zuerich.ch/statistics/property/RAUM> <http://ld.stadt-zuerich.ch/statistics/code/R00091>; <http://ld.stadt-zuerich.ch/statistics/property/KENNZAHL> ?kennzahl ; <http://ld.stadt-zuerich.ch/statistics/property/GRUPPENCODE1> ?flaeche ; <http://ld.stadt-zuerich.ch/statistics/property/EINHEIT> ?einheit ; <http://ld.stadt-zuerich.ch/statistics/property/WERT> ?wert .         ?raum rdfs:label ?raumLabel .  ?kennzahl rdfs:label  ?kennzahlLabel .  ?flaeche skos:notation  ?flaecheLabel .  BIND (xsd:datetime(SUBSTR(str(?zeit),STRLEN(str(?zeit))-3)) AS ?zeitLabel) FILTER ( ?flaecheLabel IN( &quot;BBA1210&quot;)) } }  ORDER BY ?zeitLabel"
+            yLabel="Fläche"
+            xLabel="Datum"
+            datecolumn="zeitLabel"
+            valuecolumn="wert">
+          </ssz-line>
+        </div>
+        <div class="col-md-8">
+          <p>
+          <h3>BA1210</h3>
+          Lorem ipsum dolor sit amet, sea et mazim copiosae, id vis vidit clita iriure. Qui dolor invenire te, vel cetero prompta et, ut eam probo admodum. Nec ad democritum definitionem. Ius eu mazim ignota interesset. At cum tacimates convenire iracundia, aeque audire adipiscing est an, ad mel solet iracundia honestatis. Esse euismod fabulas quo te, vim et vero ocurreret.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
