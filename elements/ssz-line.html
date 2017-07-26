@@ -18,7 +18,10 @@ class SszChart extends Polymer.Element {
  
   static get properties() {
     return {
-      query: String,
+      query: {
+        type: String,
+        observer: '_queryChanged',
+      },
       endpointurl:  String,
       description: String,
       datecolumn: String,
@@ -30,9 +33,13 @@ class SszChart extends Polymer.Element {
     }
   };
 
+  _queryChanged(e) {
+    if (this.query) {
+      this.render()
+    }
+  }
 
-  ready() {
-    super.ready()
+  render() {
     var element = this.$['sszvis-line']
 
     /* Configuration
