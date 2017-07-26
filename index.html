@@ -123,20 +123,16 @@ PREFIX  qb:   <http://purl.org/linked-data/cube#>
 PREFIX  skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT  ?date ?raumLabel ?kennzahlLabel ?flaecheLabel ?value
+SELECT  ?date ?value
 WHERE
   { GRAPH <https://linked.opendata.swiss/graph/zh/statistics>
       { ?obs      a                     qb:Observation ;
                   <http://ld.stadt-zuerich.ch/statistics/property/ZEIT>  ?zeit ;
-                  <http://ld.stadt-zuerich.ch/statistics/property/RAUM>  ?raum ;
-                  <http://ld.stadt-zuerich.ch/statistics/property/RAUM>  <http://ld.stadt-zuerich.ch/statistics/code/R00091> ;
-                  <http://ld.stadt-zuerich.ch/statistics/property/KENNZAHL>  ?kennzahl ;
+                  <http://ld.stadt-zuerich.ch/statistics/property/WERT>  ?value ;
                   <http://ld.stadt-zuerich.ch/statistics/property/GRUPPENCODE1>  ?flaeche ;
-                  <http://ld.stadt-zuerich.ch/statistics/property/EINHEIT>  ?einheit ;
-                  <http://ld.stadt-zuerich.ch/statistics/property/WERT>  ?value .
-        ?raum     rdfs:label            ?raumLabel .
-        ?kennzahl  rdfs:label           ?kennzahlLabel .
-        ?flaeche  skos:notation         ?flaecheLabel
+                  <http://ld.stadt-zuerich.ch/statistics/property/RAUM>  <http://ld.stadt-zuerich.ch/statistics/code/R00091> .
+
+        ?flaeche  skos:notation         ?flaecheLabel.
         BIND(xsd:datetime(substr(str(?zeit), ( strlen(str(?zeit)) - 3 ))) AS ?date)
         FILTER ( ?flaecheLabel IN ("BBA1210") )
       }
