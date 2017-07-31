@@ -1,0 +1,154 @@
+<html>
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <script src="webcomponentsjs/webcomponents-loader.js"></script>
+  <link rel="import" href="elements/ssz-line.html">
+  </head>
+  <body>
+    <div class="container">
+      <h1>SPARQL Query Driven Webcomponents</h1>
+      <div class="row">
+        <div class="col-md-4">
+          <ssz-line
+            query="PREFIX qb: <http://purl.org/linked-data/cube#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT ?zeitLabel ?raumLabel ?kennzahlLabel ?flaecheLabel ?wert WHERE { GRAPH <https://linked.opendata.swiss/graph/zh/statistics> { ?obs a qb:Observation ; <http://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit; <http://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum; <http://ld.stadt-zuerich.ch/statistics/property/RAUM> <http://ld.stadt-zuerich.ch/statistics/code/R00091>; <http://ld.stadt-zuerich.ch/statistics/property/KENNZAHL> ?kennzahl ; <http://ld.stadt-zuerich.ch/statistics/property/GRUPPENCODE1> ?flaeche ; <http://ld.stadt-zuerich.ch/statistics/property/EINHEIT> ?einheit ; <http://ld.stadt-zuerich.ch/statistics/property/WERT> ?wert .         ?raum rdfs:label ?raumLabel .  ?kennzahl rdfs:label  ?kennzahlLabel .  ?flaeche skos:notation  ?flaecheLabel .  BIND (xsd:datetime(SUBSTR(str(?zeit),STRLEN(str(?zeit))-3)) AS ?zeitLabel) FILTER ( ?flaecheLabel IN( &quot;BBA1310&quot;)) } }  ORDER BY ?zeitLabel"
+            yLabel="Fläche"
+            xLabel="Datum"
+            datecolumn="zeitLabel"
+            valuecolumn="wert"
+            endpointUrl="https://lindas-data.ch/sparql">
+          </ssz-line>
+        </div>
+        <div class="col-md-8">
+          <h3>BA1310 - Albisrieden</h3>
+          <p>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <ssz-line
+            id="ssz2"
+            query="PREFIX qb: <http://purl.org/linked-data/cube#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT ?zeitLabel ?raumLabel ?kennzahlLabel ?flaecheLabel ?wert WHERE { GRAPH <https://linked.opendata.swiss/graph/zh/statistics> { ?obs a qb:Observation ; <http://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit; <http://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum; <http://ld.stadt-zuerich.ch/statistics/property/RAUM> <http://ld.stadt-zuerich.ch/statistics/code/R00091>; <http://ld.stadt-zuerich.ch/statistics/property/KENNZAHL> ?kennzahl ; <http://ld.stadt-zuerich.ch/statistics/property/GRUPPENCODE1> ?flaeche ; <http://ld.stadt-zuerich.ch/statistics/property/EINHEIT> ?einheit ; <http://ld.stadt-zuerich.ch/statistics/property/WERT> ?wert .         ?raum rdfs:label ?raumLabel .  ?kennzahl rdfs:label  ?kennzahlLabel .  ?flaeche skos:notation  ?flaecheLabel .  BIND (xsd:datetime(SUBSTR(str(?zeit),STRLEN(str(?zeit))-3)) AS ?zeitLabel) FILTER ( ?flaecheLabel IN( &quot;BBA1210&quot;)) } }  ORDER BY ?zeitLabel"
+            yLabel="Fläche"
+            xLabel="Datum"
+            datecolumn="zeitLabel"
+            valuecolumn="wert"
+            endpointUrl="https://lindas-data.ch/sparql">
+          </ssz-line>
+        </div>
+        <div class="col-md-8">
+          <p>
+          <h3>BA1210</h3>
+            <select onChange="changeSelect(this)">
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00111">Affoltern</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00091">Albisrieden</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00031">Alt-Wiedikon</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00092">Altstetten</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00014">City</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00024">Enge</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00052">Escher Wyss</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00071">Fluntern</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00033">Friesenberg</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00051">Gewerbeschule</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00044">Hard</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00073">Hirslanden</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00123">Hirzenbach</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00012">Hochschulen</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00072">Hottingen</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00101">Höngg</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R10000">Kreis 1</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R01500">Kreis 10</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R01800">Kreis 11</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R01700">Kreis 12</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00200">Kreis 2</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00600">Kreis 3</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00700">Kreis 4</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00800">Kreis 5</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R01200">Kreis 6</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R01300">Kreis 7</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R01100">Kreis 8</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R01400">Kreis 9</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R01600">Kreis XI</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00042">Langstrasse</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00023">Leimbach</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00013">Lindenhof</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00082">Mühlebach</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00063">Oberstrass</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00115">Oerlikon</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00011">Rathaus</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00121">Saatlen</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00122">Schwamendingen-Mitte</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00119">Seebach</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00081">Seefeld</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00034">Sihlfeld</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R30000">Stadt Zürich</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00061">Unterstrass</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00083">Weinegg</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00041">Werd</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00102">Wipkingen</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00074">Witikon</option>
+              <option value="http://ld.stadt-zuerich.ch/statistics/code/R00021">Wollishofen</option>
+            </select>
+            <script>
+              function changeSelect(val) {
+                qS = "PREFIX qb: <http://purl.org/linked-data/cube#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT ?zeitLabel ?raumLabel ?kennzahlLabel ?flaecheLabel ?wert WHERE { GRAPH <https://linked.opendata.swiss/graph/zh/statistics> { ?obs a qb:Observation ; <http://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit; <http://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum; <http://ld.stadt-zuerich.ch/statistics/property/RAUM> <"
+                qE =  ">; <http://ld.stadt-zuerich.ch/statistics/property/KENNZAHL> ?kennzahl ; <http://ld.stadt-zuerich.ch/statistics/property/GRUPPENCODE1> ?flaeche ; <http://ld.stadt-zuerich.ch/statistics/property/EINHEIT> ?einheit ; <http://ld.stadt-zuerich.ch/statistics/property/WERT> ?wert .         ?raum rdfs:label ?raumLabel .  ?kennzahl rdfs:label  ?kennzahlLabel .  ?flaeche skos:notation  ?flaecheLabel .  BIND (xsd:datetime(SUBSTR(str(?zeit),STRLEN(str(?zeit))-3)) AS ?zeitLabel) FILTER ( ?flaecheLabel IN( \"BBA1210\")) } }  ORDER BY ?zeitLabel"
+                document.getElementById('ssz2').query = qS + val.value + qE;
+              }
+            </script>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <ssz-line
+            id="ssz3"
+            query=""
+            yLabel="Fläche"
+            xLabel="Datum"
+            datecolumn="date"
+            valuecolumn="value"
+            endpointUrl="https://lindas-data.ch/sparql">
+          </ssz-line>
+        </div>
+        <div class="col-md-8">
+          <p>
+          <h3>Query</h3>
+          <p>Query needs to return <i>date</i> and <i>value</i> columns.</p>
+          <div class="form-group">
+            <textarea class="well form-control" rows="15" style="font-size: 12px;" id="query">
+PREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#>
+PREFIX  qb:   <http://purl.org/linked-data/cube#>
+PREFIX  skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT  ?date ?value
+WHERE
+  { GRAPH <https://linked.opendata.swiss/graph/zh/statistics>
+      { ?obs      a                     qb:Observation ;
+                  <http://ld.stadt-zuerich.ch/statistics/property/ZEIT>  ?zeit ;
+                  <http://ld.stadt-zuerich.ch/statistics/property/WERT>  ?value ;
+                  <http://ld.stadt-zuerich.ch/statistics/property/GRUPPENCODE1>  ?flaeche ;
+                  <http://ld.stadt-zuerich.ch/statistics/property/RAUM>  <http://ld.stadt-zuerich.ch/statistics/code/R00091> .
+
+        ?flaeche  skos:notation         ?flaecheLabel.
+        BIND(xsd:datetime(substr(str(?zeit), ( strlen(str(?zeit)) - 3 ))) AS ?date)
+        FILTER ( ?flaecheLabel IN ("BBA1210") )
+      }
+  }
+ORDER BY ?date
+            </textarea>
+            <button type="button" class="btn" onClick="querySSZ3()">Run Query!</button>
+          </div>
+            <script>
+              function querySSZ3() {
+                document.getElementById('ssz3').query = document.getElementById('query').value;
+              }
+            </script>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
