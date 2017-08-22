@@ -1,48 +1,43 @@
 <link rel="import" href="../node_modules/@polymer/polymer/polymer-element.html">
 <script src="js/d3.min.js"></script>
+<script src="js/d3-sparql.js"></script>
 <script src="js/sszvis.js"></script>
 
 <!-- Defines element markup -->
 <dom-module id="ssz-line">
   <link href='css/sszvis.css' rel='import' type="css" />
   <template>
-    <div width="[[value]]" height="[[value]]" id="sszvis-line"></div>
-    <div style="visibility: hidden">
-      <slot></slot>
-    </div>
+    <div width="300px" id="sszvis-line"></div>
   </template>
 </dom-module>
 
 <script>
-class SszLine extends Polymer.Element {
-
+class SszChart extends Polymer.Element {
+ 
   static get is() { return 'ssz-line'; }
-
+ 
   static get properties() {
     return {
-      data: {
-        type: Object,
-        observer: '_dataChanged',
+      query: {
+        type: String,
+        observer: '_queryChanged',
       },
+      endpointurl:  String,
       description: String,
+      datecolumn: String,
+      valuecolumn:  String,
+      rulerlabel:  String,
       xlabel:  String,
       ylabel:  String,
       ticks:  Number
     }
   };
 
-  _dataChanged(e) {
-    if (this.data) {
+  _queryChanged(e) {
+    if (this.query) {
       this.render()
     }
-  };
-
-  ready() {
-        super.ready();
-        [...this.getElementsByTagName('ssz-annotation')].forEach( function(el) {
-          console.dir(el)
-        });
-  };
+  }
 
   render() {
     var element = this.$['sszvis-line']
@@ -53,6 +48,11 @@ class SszLine extends Polymer.Element {
     //This can be externalized into a file at a later point
     //currently only works for timeseries
     var config = {
+      query: this.query,
+      dateColumn: this.datecolumn,
+      valueColumn: this.valuecolumn,
+      endpointUrl: this.endpointurl || 'http://ld.stadt-zuerich.ch/query',
+      title: this.title || 'Title',
       description: this.description || 'Description', 
       rulerLabel: this.rulerlabel || '',
       xLabel: this.xlabel || 'x-Achse',
@@ -111,8 +111,16 @@ class SszLine extends Polymer.Element {
 
     /* Data initialization
     ----------------------------------------------- */
-    actions.prepareState(this.data);
-
+    d3.sparql(config.endpointUrl, config.query, function (error, res) {
+        var iso = d3.time.format.utc("%Y-%m-%dT%H:%M:%SZ")
+        var data =  res.map(function(d) {
+          return {
+            date:  d[config.dateColumn],
+            value: d[config.valueColumn]
+          }
+        })
+        actions.prepareState(data);
+      })
     /* Render
     ----------------------------------------------- */
     function render(state) {
@@ -239,7 +247,9 @@ class SszLine extends Polymer.Element {
   }
 
 }
+ 
+customElements.define(SszChart.is, SszChart);
 
-customElements.define(SszLine.is, SszLine);
+
 
 </script>

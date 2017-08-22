@@ -1,0 +1,63 @@
+<link rel="import" href="../node_modules/@polymer/polymer/polymer-element.html">
+<link rel="import" href="ssz-line.html">
+<script src="js/ssz-fetch.js"></script>
+
+<!-- Defines element markup -->
+<dom-module id="ssz-widget">
+  <template>
+    <ssz-line
+      id="line"
+      width="[[value]]" height="[[value]]"
+      yLabel="Fläche"
+      xLabel="Datum">
+<!--
+      <ssz-annotation>Test2</ssz-annotation>
+      <ssz-annotation>Blib Blablu</ssz-annotation>
+-->
+    </ssz-line>
+  </template>
+</dom-module>
+
+<script>
+class SszWidget extends Polymer.Element {
+
+  static get is() { return 'ssz-widget'; }
+
+  static get properties() {
+    return {
+    }
+  };
+
+  constructor() {
+    super();
+
+    SszFetch.RdfFetch(
+      'http://ld.stadt-zuerich.ch/api/statistics/flaechen/?raum=R00091', 
+      {method: 'post', headers: { accept: 'text/turtle'}}).then((response) => {
+      return response.dataset()
+    }).then((dataset) => {
+      var data = []
+      dataset.match(null, rdf.namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), rdf.namedNode("http://purl.org/linked-data/cube#Observation")).forEach((quad) => {
+        data.push({
+          value: dataset.match(
+            quad.subject,
+            rdf.namedNode("http://ld.stadt-zuerich.ch/statistics/property/WERT"))
+              .toArray().shift()
+              .object.value,
+          date: new Date(dataset.match(
+            quad.subject,
+            rdf.namedNode("http://ld.stadt-zuerich.ch/statistics/property/ZEIT"))
+              .toArray().shift()
+              .object.value.slice(-4))
+        })
+      })
+
+      this.$['line'].set('data', data)
+
+    })
+  }
+}
+
+customElements.define(SszWidget.is, SszWidget);
+
+</script>

@@ -1,0 +1,18 @@
+<html>
+<head>
+<script src="http://rdf-ext.zazuko.com/dist/rdf-ext-all-1.0.0.src.js"></script>
+</head>
+<body>
+
+<script>
+
+rdfFetch('http://ld.stadt-zuerich.ch/api', {method: 'post'}).then((response) => {
+  return response.dataset()
+}).then((dataset) => {
+  window.dataset = dataset
+  console.log(dataset)
+})
+
+</script>
+</body>
+</html>
