@@ -8,6 +8,7 @@ exec('browserify src/*.js --standalone SszFetch --debug | exorcist elements/js/s
 // vulcanize elements
 let elements = [
   'ssz-line',
+  'ssz-widget',
   'ssz-sparql-line'
 ]
 elements.map(function (name) {
