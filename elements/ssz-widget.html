@@ -25,11 +25,15 @@ class SszWidget extends Polymer.Element {
 
   static get properties() {
     return {
+      api: String,
+      property: String
     }
   };
 
-  constructor() {
-    super();
+  ready() {
+    super.ready();
+
+    var api = SszFetch(this.api, this.property);
 
     SszFetch.RdfFetch(
       'http://ld.stadt-zuerich.ch/api/statistics/flaechen/?raum=R00091', 
@@ -54,8 +58,8 @@ class SszWidget extends Polymer.Element {
 
       this.$['line'].set('data', data)
 
-    })
-  }
+    });
+  };
 }
 
 customElements.define(SszWidget.is, SszWidget);

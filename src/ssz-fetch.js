@@ -1,7 +1,8 @@
 var rdf = require("rdf-ext")
 
 
-function SszFetch (viewIri) {
+function SszFetch (api, property) {
+  console.log(api, property)
   var self = this
 }
 
