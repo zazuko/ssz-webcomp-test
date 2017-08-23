@@ -35,8 +35,7 @@ class SszWidget extends Polymer.Element {
 
     var api = SszFetch(this.api, this.property);
 
-    SszFetch.RdfFetch(
-      'http://ld.stadt-zuerich.ch/api/statistics/flaechen/?raum=R00091', 
+    rdfFetch('http://ld.stadt-zuerich.ch/api/statistics/flaechen/?raum=R00091', 
       {method: 'post', headers: { accept: 'text/turtle'}}).then((response) => {
       return response.dataset()
     }).then((dataset) => {

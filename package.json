@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "install": "node build.js",
-    "lint": "standard lib/*.js",
-    "watch": "watchify --verbose src/*.js --standalone SszFetch --debug -o 'exorcist elements/js/ssz-fetch.js.map > elements/js/ssz-fetch.js'",
+    "lint": "standard src/*.js",
+    "watch": "watchify --verbose src/* --standalone SszFetch -o 'exorcist elements/js/ssz-fetch.js.map > elements/js/ssz-fetch.js'",
     "start": "http-server -P http://ld.stadt-zuerich.ch dist/"
   },
   "author": "",
